@@ -40,6 +40,23 @@ function Clock() {
   );
 }
 
+function downloadExtension() {
+  fetch("/mizuki-extension.zip")
+    .then((res) => {
+      if (!res.ok) throw new Error(`Download failed: ${res.status}`);
+      return res.blob();
+    })
+    .then((blob) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "mizuki-extension.zip";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch((err) => alert(err.message));
+}
+
+
 function Index() {
   return (
     <main className="wallpaper crt relative min-h-screen overflow-hidden">
