@@ -40,6 +40,23 @@ function Clock() {
   );
 }
 
+function downloadExtension() {
+  fetch("/mizuki-extension.zip")
+    .then((res) => {
+      if (!res.ok) throw new Error(`Download failed: ${res.status}`);
+      return res.blob();
+    })
+    .then((blob) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "mizuki-extension.zip";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    })
+    .catch((err) => alert(err.message));
+}
+
+
 function Index() {
   return (
     <main className="wallpaper crt relative min-h-screen overflow-hidden">
@@ -73,7 +90,39 @@ function Index() {
             </li>
           ))}
         </ul>
+
+        <div className="panel mt-10 rounded-md p-4">
+          <h2 className="font-display text-sm uppercase tracking-[0.25em]">
+            Take her to every tab
+          </h2>
+          <p className="mt-2 text-sm opacity-75">
+            A Firefox / Chromium extension that floats Mizuki in the corner of every page you
+            browse. She reads the page title, sulks when you tab away, and you can chat with her
+            by clicking the sprite.
+          </p>
+          <button
+            type="button"
+            onClick={downloadExtension}
+            className="font-display mt-4 rounded-sm border-2 border-ink bg-primary px-4 py-2 text-xs uppercase tracking-widest text-primary-foreground transition-transform active:translate-y-px"
+          >
+            Download extension (.zip)
+          </button>
+          <ol className="mt-4 space-y-1 text-sm opacity-75">
+            <li>1. Unzip it somewhere permanent.</li>
+            <li>
+              2. Firefox: open <code>about:debugging#/runtime/this-firefox</code> → Load Temporary
+              Add-on → pick <code>manifest.json</code>. (Permanent install needs a signed build —
+              or use Firefox Developer Edition with{" "}
+              <code>xpinstall.signatures.required = false</code>.)
+            </li>
+            <li>
+              3. Chromium: <code>chrome://extensions</code> → Developer mode → Load unpacked.
+            </li>
+            <li>4. Click the toolbar icon to toggle her or point her at another server.</li>
+          </ol>
+        </div>
       </section>
+
 
       <Companion />
     </main>
