@@ -2,7 +2,7 @@
 const api = typeof browser !== "undefined" ? browser : chrome;
 
 const DEFAULTS = {
-  apiBase: "https://project--597808e0-745c-45f7-bbcf-1e05f1cc90f7.lovable.app",
+  apiBase: "https://desktop-anime-buddy.lovable.app",
   enabled: true,
   chatty: true,
 };
