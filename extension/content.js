@@ -83,10 +83,10 @@ async function speak(event) {
   if (busy || !settings.enabled) return;
   busy = true;
   try {
-    const res = await fetch(`${settings.apiBase.replace(/\/$/, "")}/api/public/companion`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
+    const reply = await api.runtime.sendMessage({
+      type: "mizuki-speak",
+      apiBase: settings.apiBase,
+      payload: {
         event,
         localTime: new Date().toLocaleTimeString([], {
           hour: "2-digit",
@@ -94,13 +94,14 @@ async function speak(event) {
           weekday: "long",
         }),
         history: history.slice(-6),
-      }),
+      },
     });
-    if (!res.ok) throw new Error("bad response");
-    const data = await res.json();
+    if (!reply || !reply.ok) throw new Error(reply ? reply.error : "no response");
+    const data = reply.data;
     history = [...history, data.line].slice(-8);
     say(data.line, data.mood);
-  } catch {
+  } catch (err) {
+    console.warn("[Mizuki] request failed:", err);
     say("...I can't reach home right now. Check my settings?", "flustered");
   } finally {
     busy = false;
