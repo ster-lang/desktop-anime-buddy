@@ -42,6 +42,7 @@ export async function generateComment(data: CommentInputType) {
     system: SYSTEM,
     prompt: `User's local time: ${data.localTime || "unknown"}\n${recent}\n\nWhat just happened: ${data.event}`,
     temperature: 1,
+    maxOutputTokens: 120,
   });
 
   const raw = (await result.text).trim();
