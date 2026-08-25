@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        width: 260px;
+        margin: 0;
+        padding: 14px;
+        background: #fdf3e3;
+        color: #1b2340;
+        font-family: system-ui, sans-serif;
+        font-size: 13px;
+      }
+      h1 {
+        font-size: 13px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin: 0 0 10px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 4px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        opacity: 0.6;
+      }
+      input[type="text"] {
+        width: 100%;
+        box-sizing: border-box;
+        border: 2px solid #1b2340;
+        border-radius: 4px;
+        padding: 5px 6px;
+        font: inherit;
+        background: #fff;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      p.hint {
+        margin: 12px 0 0;
+        font-size: 11px;
+        opacity: 0.65;
+        line-height: 1.4;
+      }
+      img {
+        width: 64px;
+        float: right;
+        margin: -6px -4px 0 0;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="sprites/companion-happy.png" alt="" />
+    <h1>Mizuki</h1>
+
+    <div class="row"><input type="checkbox" id="enabled" /><label for="enabled" style="margin:0">Show her on pages</label></div>
+    <div class="row"><input type="checkbox" id="chatty" /><label for="chatty" style="margin:0">Comment when you go idle</label></div>
+
+    <label for="apiBase">Companion server</label>
+    <input type="text" id="apiBase" spellcheck="false" />
+
+    <p class="hint">Settings save automatically. Reload a tab to apply.</p>
+    <script src="popup.js"></script>
+  </body>
+</html>
