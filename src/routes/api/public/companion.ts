@@ -7,6 +7,22 @@ const CORS = {
   "Access-Control-Max-Age": "86400",
 };
 
+// In-memory sliding window (best-effort; instances are ephemeral).
+const HITS = new Map<string, number[]>();
+const WINDOW_MS = 60_000;
+const MAX_PER_WINDOW = 20;
+
+function allow(ip: string) {
+  const now = Date.now();
+  const hits = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  hits.push(now);
+  HITS.set(ip, hits);
+  if (HITS.size > 5000) HITS.clear();
+  return hits.length <= MAX_PER_WINDOW;
+}
+
+
+
 export const Route = createFileRoute("/api/public/companion")({
   server: {
     handlers: {
