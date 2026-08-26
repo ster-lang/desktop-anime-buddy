@@ -5,9 +5,16 @@ const DEFAULTS = {
   apiBase: "https://desktop-anime-buddy.lovable.app",
   enabled: true,
   chatty: true,
+  outfit: "sweater",
+  persona: "enthusiastic",
+  language: "en",
+  scale: 2,
+  pos: null, // { x, y } top-left in px, null = default bottom-right
 };
 
 const MOODS = ["idle", "happy", "flustered", "jealous"];
+const OUTFITS = ["sweater", "school", "yukata"];
+const BASE_WIDTH = 118;
 
 let settings = { ...DEFAULTS };
 let history = [];
@@ -17,7 +24,76 @@ let root, bubbleEl, textEl, spriteEl, inputEl;
 let hideTimer;
 
 function spriteUrl(mood) {
-  return api.runtime.getURL(`sprites/companion-${MOODS.includes(mood) ? mood : "idle"}.png`);
+  const outfit = OUTFITS.includes(settings.outfit) ? settings.outfit : "sweater";
+  const m = MOODS.includes(mood) ? mood : "idle";
+  return api.runtime.getURL(`sprites/companion-${outfit}-${m}.png`);
+}
+
+function applyScale() {
+  if (spriteEl) spriteEl.style.width = `${BASE_WIDTH * (Number(settings.scale) || 2)}px`;
+}
+
+function applyPosition() {
+  if (!root) return;
+  const p = settings.pos;
+  if (p && typeof p.x === "number") {
+    root.style.left = `${p.x}px`;
+    root.style.top = `${p.y}px`;
+    root.style.right = "auto";
+    root.style.bottom = "auto";
+  } else {
+    root.style.left = "auto";
+    root.style.top = "auto";
+    root.style.right = "12px";
+    root.style.bottom = "12px";
+  }
+}
+
+function makeDraggable() {
+  let dragging = false;
+  let moved = false;
+  let dx = 0;
+  let dy = 0;
+
+  spriteEl.addEventListener("pointerdown", (e) => {
+    if (e.button !== 0) return;
+    const rect = root.getBoundingClientRect();
+    dx = e.clientX - rect.left;
+    dy = e.clientY - rect.top;
+    dragging = true;
+    moved = false;
+    spriteEl.setPointerCapture(e.pointerId);
+    root.classList.add("mizuki-dragging");
+  });
+
+  spriteEl.addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    moved = true;
+    const rect = root.getBoundingClientRect();
+    const x = Math.min(Math.max(0, e.clientX - dx), window.innerWidth - rect.width);
+    const y = Math.min(Math.max(0, e.clientY - dy), window.innerHeight - rect.height);
+    settings.pos = { x, y };
+    applyPosition();
+  });
+
+  const end = (e) => {
+    if (!dragging) return;
+    dragging = false;
+    root.classList.remove("mizuki-dragging");
+    try {
+      spriteEl.releasePointerCapture(e.pointerId);
+    } catch {}
+    if (moved) api.storage.local.set({ pos: settings.pos });
+    else onPoke();
+  };
+  spriteEl.addEventListener("pointerup", end);
+  spriteEl.addEventListener("pointercancel", end);
+}
+
+function onPoke() {
+  root.classList.toggle("mizuki-chatting");
+  if (root.classList.contains("mizuki-chatting")) inputEl.focus();
+  else speak("The user just poked you right on the head with their cursor. Be flustered.");
 }
 
 function build() {
@@ -38,12 +114,8 @@ function build() {
   spriteEl = document.createElement("img");
   spriteEl.id = "mizuki-sprite";
   spriteEl.alt = "Mizuki";
+  spriteEl.draggable = false;
   spriteEl.src = spriteUrl("idle");
-  spriteEl.addEventListener("click", () => {
-    root.classList.toggle("mizuki-chatting");
-    if (root.classList.contains("mizuki-chatting")) inputEl.focus();
-    else speak("The user just poked you right on the head with their cursor. Be flustered.");
-  });
 
   inputEl = document.createElement("input");
   inputEl.id = "mizuki-input";
@@ -60,6 +132,9 @@ function build() {
 
   root.append(bubbleEl, spriteEl, inputEl);
   document.documentElement.appendChild(root);
+  applyScale();
+  applyPosition();
+  makeDraggable();
 }
 
 function say(line, mood) {
@@ -88,6 +163,8 @@ async function speak(event) {
       apiBase: settings.apiBase,
       payload: {
         event,
+        persona: settings.persona,
+        language: settings.language,
         localTime: new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
@@ -160,5 +237,9 @@ api.storage.local.get(DEFAULTS).then((stored) => {
 
 api.storage.onChanged.addListener((changes) => {
   for (const [k, v] of Object.entries(changes)) settings[k] = v.newValue;
-  if (root) root.classList.toggle("mizuki-hidden", !settings.enabled);
+  if (!root) return;
+  root.classList.toggle("mizuki-hidden", !settings.enabled);
+  if (changes.scale) applyScale();
+  if (changes.pos) applyPosition();
+  if (changes.outfit) spriteEl.src = spriteUrl(spriteEl.dataset.mood || "idle");
 });
