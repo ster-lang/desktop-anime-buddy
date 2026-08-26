@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <style>
       body {
-        width: 260px;
+        width: 268px;
         margin: 0;
         padding: 14px;
         background: #fdf3e3;
@@ -26,7 +26,8 @@
         letter-spacing: 0.1em;
         opacity: 0.6;
       }
-      input[type="text"] {
+      input[type="text"],
+      select {
         width: 100%;
         box-sizing: border-box;
         border: 2px solid #1b2340;
@@ -34,6 +35,9 @@
         padding: 5px 6px;
         font: inherit;
         background: #fff;
+      }
+      input[type="range"] {
+        width: 100%;
       }
       .row {
         display: flex;
@@ -47,6 +51,15 @@
         opacity: 0.65;
         line-height: 1.4;
       }
+      button.reset {
+        margin-top: 10px;
+        border: 2px solid #1b2340;
+        border-radius: 4px;
+        background: #fff;
+        font: inherit;
+        padding: 4px 8px;
+        cursor: pointer;
+      }
       img {
         width: 64px;
         float: right;
@@ -55,16 +68,43 @@
     </style>
   </head>
   <body>
-    <img src="sprites/companion-happy.png" alt="" />
+    <img src="sprites/companion-sweater-happy.png" alt="" />
     <h1>Mizuki</h1>
 
     <div class="row"><input type="checkbox" id="enabled" /><label for="enabled" style="margin:0">Show her on pages</label></div>
     <div class="row"><input type="checkbox" id="chatty" /><label for="chatty" style="margin:0">Comment when you go idle</label></div>
 
+    <label for="outfit">Outfit</label>
+    <select id="outfit">
+      <option value="sweater">Cozy sweater</option>
+      <option value="school">Sailor uniform</option>
+      <option value="yukata">Summer yukata</option>
+    </select>
+
+    <label for="persona">Personality</label>
+    <select id="persona">
+      <option value="enthusiastic">Enthusiastic</option>
+      <option value="encouraging">Encouraging</option>
+      <option value="quiet">Quiet</option>
+      <option value="motivational">Motivational</option>
+    </select>
+
+    <label for="language">Language</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="de">Deutsch</option>
+      <option value="both">Deutsch / English</option>
+    </select>
+
+    <label for="scale">Size — <span id="scaleVal">2.0</span>x</label>
+    <input type="range" id="scale" min="1" max="4" step="0.25" />
+
     <label for="apiBase">Companion server</label>
     <input type="text" id="apiBase" spellcheck="false" />
 
-    <p class="hint">Settings save automatically. Reload a tab to apply.</p>
+    <button class="reset" id="resetPos">Reset her position</button>
+
+    <p class="hint">Drag her by the sprite to move her anywhere. Settings save automatically; reload a tab to apply.</p>
     <script src="popup.js"></script>
   </body>
 </html>
