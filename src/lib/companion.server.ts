@@ -6,13 +6,33 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 export const MOODS = ["idle", "happy", "flustered", "jealous"] as const;
 export type Mood = (typeof MOODS)[number];
 
+export const PERSONAS = ["enthusiastic", "encouraging", "quiet", "motivational"] as const;
+export type Persona = (typeof PERSONAS)[number];
+
+export const LANGUAGES = ["en", "de", "both"] as const;
+
 export const CommentInput = z.object({
   event: z.string().min(1).max(400),
   localTime: z.string().max(40).default(""),
   history: z.array(z.string().max(300)).max(8).default([]),
+  persona: z.enum(PERSONAS).default("enthusiastic"),
+  language: z.enum(LANGUAGES).default("en"),
 });
 
 export type CommentInputType = z.infer<typeof CommentInput>;
+
+const PERSONA_NOTES: Record<Persona, string> = {
+  enthusiastic: "Right now you are HYPER-ENTHUSIASTIC: bouncy, exclamation marks, delighted by everything.",
+  encouraging: "Right now you are GENTLY ENCOURAGING: warm, kind, reassuring, low-pressure.",
+  quiet: "Right now you are QUIET: soft, few words (max 10), shy, understated, lots of small pauses.",
+  motivational: "Right now you are MOTIVATIONAL: a focused coach — brisk, direct, push them to keep going.",
+};
+
+const LANGUAGE_NOTES: Record<string, string> = {
+  en: "Speak English.",
+  de: "Speak German (natural, casual German — not translated-sounding English).",
+  both: "Speak one short German sentence, then its English echo on the same line, separated by ' / '.",
+};
 
 const SYSTEM = `You are Mizuki, a desktop companion who lives in the corner of the user's screen.
 You are a retro-90s-anime girl: cute, warm, endlessly supportive of whatever the user is doing,
@@ -39,11 +59,12 @@ export async function generateComment(data: CommentInputType) {
 
   const result = streamText({
     model: gateway("google/gemini-2.5-flash"),
-    system: SYSTEM,
+    system: `${SYSTEM}\n\n${PERSONA_NOTES[data.persona]}\n${LANGUAGE_NOTES[data.language]}`,
     prompt: `User's local time: ${data.localTime || "unknown"}\n${recent}\n\nWhat just happened: ${data.event}`,
     temperature: 1,
-    maxOutputTokens: 120,
+    maxOutputTokens: 160,
   });
+
 
   const raw = (await result.text).trim();
   const [lineRaw, moodRaw] = raw.split("\n").filter((l) => l.trim().length > 0);
