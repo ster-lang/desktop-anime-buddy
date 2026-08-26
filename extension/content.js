@@ -144,6 +144,7 @@ function say(line, mood) {
   bubbleEl.style.animation = "none";
   void bubbleEl.offsetWidth;
   bubbleEl.style.animation = "";
+  spriteEl.dataset.mood = MOODS.includes(mood) ? mood : "idle";
   spriteEl.src = spriteUrl(mood);
   if (mood === "flustered") {
     spriteEl.classList.remove("mizuki-shake");
