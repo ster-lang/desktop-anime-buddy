@@ -13,7 +13,7 @@ const DEFAULTS = {
 };
 
 const MOODS = ["idle", "happy", "flustered", "jealous"];
-const OUTFITS = ["sweater", "school", "yukata"];
+const OUTFITS = ["sweater", "school", "yukata", "hacker", "beach"];
 const BASE_WIDTH = 118;
 
 let settings = { ...DEFAULTS };
