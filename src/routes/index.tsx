@@ -118,7 +118,11 @@ function Index() {
             <li>
               3. Chromium: <code>chrome://extensions</code> → Developer mode → Load unpacked.
             </li>
-            <li>4. Click the toolbar icon to toggle her or point her at another server.</li>
+            <li>
+              4. Click the toolbar icon for outfits, personality, German, and her size — and drag
+              her by the sprite to move her anywhere on the page.
+            </li>
+
           </ol>
         </div>
       </section>
