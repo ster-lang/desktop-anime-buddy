@@ -13,10 +13,18 @@ import yukataIdle from "@/assets/companion-yukata-idle.png";
 import yukataHappy from "@/assets/companion-yukata-happy.png";
 import yukataFlustered from "@/assets/companion-yukata-flustered.png";
 import yukataJealous from "@/assets/companion-yukata-jealous.png";
+import hackerIdle from "@/assets/companion-hacker-idle.png";
+import hackerHappy from "@/assets/companion-hacker-happy.png";
+import hackerFlustered from "@/assets/companion-hacker-flustered.png";
+import hackerJealous from "@/assets/companion-hacker-jealous.png";
+import beachIdle from "@/assets/companion-beach-idle.png";
+import beachHappy from "@/assets/companion-beach-happy.png";
+import beachFlustered from "@/assets/companion-beach-flustered.png";
+import beachJealous from "@/assets/companion-beach-jealous.png";
 import { getCompanionComment } from "@/lib/companion.functions";
 
 type Mood = "idle" | "happy" | "flustered" | "jealous";
-type Outfit = "sweater" | "school" | "yukata";
+type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach";
 type Persona = "enthusiastic" | "encouraging" | "quiet" | "motivational";
 type Language = "en" | "de" | "both";
 
