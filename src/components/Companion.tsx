@@ -80,6 +80,8 @@ const PERSONA_LABELS: Record<Persona, string> = {
   encouraging: "Encouraging",
   quiet: "Quiet",
   motivational: "Motivational",
+  researcher: "Security researcher",
+  dayoff: "Relaxed day off",
 };
 
 const LANGUAGE_LABELS: Record<Language, string> = {
