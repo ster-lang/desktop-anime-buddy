@@ -6,7 +6,14 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 export const MOODS = ["idle", "happy", "flustered", "jealous"] as const;
 export type Mood = (typeof MOODS)[number];
 
-export const PERSONAS = ["enthusiastic", "encouraging", "quiet", "motivational"] as const;
+export const PERSONAS = [
+  "enthusiastic",
+  "encouraging",
+  "quiet",
+  "motivational",
+  "researcher",
+  "dayoff",
+] as const;
 export type Persona = (typeof PERSONAS)[number];
 
 export const LANGUAGES = ["en", "de", "both"] as const;
