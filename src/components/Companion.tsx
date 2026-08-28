@@ -47,12 +47,26 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     flustered: yukataFlustered,
     jealous: yukataJealous,
   },
+  hacker: {
+    idle: hackerIdle,
+    happy: hackerHappy,
+    flustered: hackerFlustered,
+    jealous: hackerJealous,
+  },
+  beach: {
+    idle: beachIdle,
+    happy: beachHappy,
+    flustered: beachFlustered,
+    jealous: beachJealous,
+  },
 };
 
 const OUTFIT_LABELS: Record<Outfit, string> = {
   sweater: "Cozy sweater",
   school: "Sailor uniform",
   yukata: "Summer yukata",
+  hacker: "Overheated hacker",
+  beach: "Beach mode",
 };
 
 const PERSONA_LABELS: Record<Persona, string> = {
