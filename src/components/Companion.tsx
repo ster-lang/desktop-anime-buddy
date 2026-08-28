@@ -25,7 +25,13 @@ import { getCompanionComment } from "@/lib/companion.functions";
 
 type Mood = "idle" | "happy" | "flustered" | "jealous";
 type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach";
-type Persona = "enthusiastic" | "encouraging" | "quiet" | "motivational";
+type Persona =
+  | "enthusiastic"
+  | "encouraging"
+  | "quiet"
+  | "motivational"
+  | "researcher"
+  | "dayoff";
 type Language = "en" | "de" | "both";
 
 const SPRITES: Record<Outfit, Record<Mood, string>> = {
@@ -74,6 +80,8 @@ const PERSONA_LABELS: Record<Persona, string> = {
   encouraging: "Encouraging",
   quiet: "Quiet",
   motivational: "Motivational",
+  researcher: "Security researcher",
+  dayoff: "Relaxed day off",
 };
 
 const LANGUAGE_LABELS: Record<Language, string> = {

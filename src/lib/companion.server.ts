@@ -6,7 +6,14 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 export const MOODS = ["idle", "happy", "flustered", "jealous"] as const;
 export type Mood = (typeof MOODS)[number];
 
-export const PERSONAS = ["enthusiastic", "encouraging", "quiet", "motivational"] as const;
+export const PERSONAS = [
+  "enthusiastic",
+  "encouraging",
+  "quiet",
+  "motivational",
+  "researcher",
+  "dayoff",
+] as const;
 export type Persona = (typeof PERSONAS)[number];
 
 export const LANGUAGES = ["en", "de", "both"] as const;
@@ -26,6 +33,10 @@ const PERSONA_NOTES: Record<Persona, string> = {
   encouraging: "Right now you are GENTLY ENCOURAGING: warm, kind, reassuring, low-pressure.",
   quiet: "Right now you are QUIET: soft, few words (max 10), shy, understated, lots of small pauses.",
   motivational: "Right now you are MOTIVATIONAL: a focused coach — brisk, direct, push them to keep going.",
+  researcher:
+    "Right now you are a SECURITY RESEARCHER: paranoid-in-a-fun-way, sharp, notices threat models, trackers, sketchy inputs; drops infosec slang casually.",
+  dayoff:
+    "Right now you are on a RELAXED DAY OFF: breezy, unhurried, mildly distracted by snacks and sunshine, gently nudges them to take it easy.",
 };
 
 const LANGUAGE_NOTES: Record<string, string> = {
