@@ -186,7 +186,7 @@ export function Companion() {
       const away = Math.round((Date.now() - leftAt) / 1000);
       if (leftAt && away > 8) {
         void speak(
-          `The user switched away to another tab or app for ${away} seconds and just came back. Be jealous about whatever had their attention.`,
+          `The user switched away to another tab or app for ${away} seconds and just came back. Welcome them back warmly; only sometimes a light one-beat pout about whatever had their attention.`,
         );
       }
       lastActivityRef.current = Date.now();
@@ -228,7 +228,7 @@ export function Companion() {
     setDragging(false);
     (e.target as HTMLElement).releasePointerCapture(e.pointerId);
     if (!dragState.current.moved) {
-      void speak("The user just poked you right on the head with their cursor. Be flustered.");
+      void speak("The user just poked you right on the head with their cursor. Usually be flustered or delighted.");
     }
   };
 

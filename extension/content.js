@@ -93,7 +93,7 @@ function makeDraggable() {
 function onPoke() {
   root.classList.toggle("mizuki-chatting");
   if (root.classList.contains("mizuki-chatting")) inputEl.focus();
-  else speak("The user just poked you right on the head with their cursor. Be flustered.");
+  else speak("The user just poked you right on the head with their cursor. Usually be flustered or delighted.");
 }
 
 function build() {
@@ -225,7 +225,7 @@ function start() {
     lastActivity = Date.now();
     if (leftAt && away > 20) {
       speak(
-        `The user disappeared into another tab or app for ${away} seconds and just came back to "${document.title}". Be jealous.`,
+        `The user disappeared into another tab or app for ${away} seconds and just came back to \"${document.title}\". Welcome them back warmly; only sometimes a light one-beat pout.`,
       );
     }
   });
