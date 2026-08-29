@@ -5,26 +5,42 @@ import idleSprite from "@/assets/companion-idle.png";
 import happySprite from "@/assets/companion-happy.png";
 import flusteredSprite from "@/assets/companion-flustered.png";
 import jealousSprite from "@/assets/companion-jealous.png";
+import sweaterInterested from "@/assets/companion-sweater-interested.png";
+import sweaterThinking from "@/assets/companion-sweater-thinking.png";
 import schoolIdle from "@/assets/companion-school-idle.png";
 import schoolHappy from "@/assets/companion-school-happy.png";
 import schoolFlustered from "@/assets/companion-school-flustered.png";
 import schoolJealous from "@/assets/companion-school-jealous.png";
+import schoolInterested from "@/assets/companion-school-interested.png";
+import schoolThinking from "@/assets/companion-school-thinking.png";
 import yukataIdle from "@/assets/companion-yukata-idle.png";
 import yukataHappy from "@/assets/companion-yukata-happy.png";
 import yukataFlustered from "@/assets/companion-yukata-flustered.png";
 import yukataJealous from "@/assets/companion-yukata-jealous.png";
+import yukataInterested from "@/assets/companion-yukata-interested.png";
+import yukataThinking from "@/assets/companion-yukata-thinking.png";
 import hackerIdle from "@/assets/companion-hacker-idle.png";
 import hackerHappy from "@/assets/companion-hacker-happy.png";
 import hackerFlustered from "@/assets/companion-hacker-flustered.png";
 import hackerJealous from "@/assets/companion-hacker-jealous.png";
+import hackerInterested from "@/assets/companion-hacker-interested.png";
+import hackerThinking from "@/assets/companion-hacker-thinking.png";
 import beachIdle from "@/assets/companion-beach-idle.png";
 import beachHappy from "@/assets/companion-beach-happy.png";
 import beachFlustered from "@/assets/companion-beach-flustered.png";
 import beachJealous from "@/assets/companion-beach-jealous.png";
+import beachInterested from "@/assets/companion-beach-interested.png";
+import beachThinking from "@/assets/companion-beach-thinking.png";
+import pyjamasIdle from "@/assets/companion-pyjamas-idle.png";
+import pyjamasHappy from "@/assets/companion-pyjamas-happy.png";
+import pyjamasFlustered from "@/assets/companion-pyjamas-flustered.png";
+import pyjamasJealous from "@/assets/companion-pyjamas-jealous.png";
+import pyjamasInterested from "@/assets/companion-pyjamas-interested.png";
+import pyjamasThinking from "@/assets/companion-pyjamas-thinking.png";
 import { getCompanionComment } from "@/lib/companion.functions";
 
-type Mood = "idle" | "happy" | "flustered" | "jealous";
-type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach";
+type Mood = "idle" | "happy" | "interested" | "thinking" | "flustered" | "jealous";
+type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach" | "pyjamas";
 type Persona =
   | "enthusiastic"
   | "encouraging"
@@ -38,32 +54,50 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
   sweater: {
     idle: idleSprite,
     happy: happySprite,
+    interested: sweaterInterested,
+    thinking: sweaterThinking,
     flustered: flusteredSprite,
     jealous: jealousSprite,
   },
   school: {
     idle: schoolIdle,
     happy: schoolHappy,
+    interested: schoolInterested,
+    thinking: schoolThinking,
     flustered: schoolFlustered,
     jealous: schoolJealous,
   },
   yukata: {
     idle: yukataIdle,
     happy: yukataHappy,
+    interested: yukataInterested,
+    thinking: yukataThinking,
     flustered: yukataFlustered,
     jealous: yukataJealous,
   },
   hacker: {
     idle: hackerIdle,
     happy: hackerHappy,
+    interested: hackerInterested,
+    thinking: hackerThinking,
     flustered: hackerFlustered,
     jealous: hackerJealous,
   },
   beach: {
     idle: beachIdle,
     happy: beachHappy,
+    interested: beachInterested,
+    thinking: beachThinking,
     flustered: beachFlustered,
     jealous: beachJealous,
+  },
+  pyjamas: {
+    idle: pyjamasIdle,
+    happy: pyjamasHappy,
+    interested: pyjamasInterested,
+    thinking: pyjamasThinking,
+    flustered: pyjamasFlustered,
+    jealous: pyjamasJealous,
   },
 };
 
@@ -73,6 +107,7 @@ const OUTFIT_LABELS: Record<Outfit, string> = {
   yukata: "Summer yukata",
   hacker: "Overheated hacker",
   beach: "Beach mode",
+  pyjamas: "Bedtime pyjamas",
 };
 
 const PERSONA_LABELS: Record<Persona, string> = {
