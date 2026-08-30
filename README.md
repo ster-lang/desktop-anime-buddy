@@ -1,3 +1,5 @@
+!!ACHTUNG!!! 100% Vibe Coded!
+
 # Desktop Pal
 
 speculative idea: what about a cute anime girl companion that sits on my desktop and comments on things
