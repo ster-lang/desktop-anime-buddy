@@ -56,7 +56,8 @@ export const Route = createFileRoute("/api/public/companion")({
           return new Response(JSON.stringify(result), {
             headers: { ...CORS, "content-type": "application/json" },
           });
-        } catch {
+        } catch (err) {
+          console.error("[companion] request failed:", err);
           return new Response(JSON.stringify({ error: "bad request" }), {
             status: 400,
             headers: { ...CORS, "content-type": "application/json" },
