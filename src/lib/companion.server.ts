@@ -85,7 +85,7 @@ async function viaGoogleAiStudio(apiKey: string, system: string, prompt: string)
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: system }] },
         contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 1, maxOutputTokens: 512 },
+        generationConfig: { temperature: 1, maxOutputTokens: 800, thinkingConfig: { thinkingLevel: "low" } },
       }),
     },
   );
