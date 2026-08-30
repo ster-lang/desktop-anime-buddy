@@ -78,14 +78,14 @@ function parseReply(raw: string) {
 /** Google AI Studio free tier (generativelanguage API) — direct, no Lovable credits. */
 async function viaGoogleAiStudio(apiKey: string, system: string, prompt: string) {
   const res = await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
     {
       method: "POST",
       headers: { "content-type": "application/json", "x-goog-api-key": apiKey },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: system }] },
         contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 1, maxOutputTokens: 160 },
+        generationConfig: { temperature: 1, maxOutputTokens: 800, thinkingConfig: { thinkingLevel: "low" } },
       }),
     },
   );
