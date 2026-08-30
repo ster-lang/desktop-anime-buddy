@@ -68,29 +68,67 @@ Then, on a SECOND line, output only one mood word from: idle, happy, interested,
 Use "interested" when what they're doing genuinely intrigues you, and "thinking" when you're
 mulling something over or puzzling out what they're up to. Those two are welcome often.`;
 
+function parseReply(raw: string) {
+  const [lineRaw, moodRaw] = raw.trim().split("\n").filter((l) => l.trim().length > 0);
+  const mood: Mood = MOODS.find((m) => (moodRaw ?? "").toLowerCase().includes(m)) ?? "idle";
+  const line = (lineRaw ?? "...").replace(/^["'\s]+|["'\s]+$/g, "").slice(0, 180);
+  return { line, mood };
+}
+
+/** Google AI Studio free tier (generativelanguage API) — direct, no Lovable credits. */
+async function viaGoogleAiStudio(apiKey: string, system: string, prompt: string) {
+  const res = await fetch(
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+    {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-goog-api-key": apiKey },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: system }] },
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 1, maxOutputTokens: 160 },
+      }),
+    },
+  );
+  if (!res.ok) {
+    throw new Error(`google ai studio ${res.status}: ${await res.text().catch(() => "")}`);
+  }
+  const json = (await res.json()) as {
+    candidates?: { content?: { parts?: { text?: string }[] } }[];
+  };
+  const text = json.candidates?.[0]?.content?.parts?.map((p) => p.text ?? "").join("") ?? "";
+  if (!text.trim()) throw new Error("google ai studio returned no text");
+  return text;
+}
+
 export async function generateComment(data: CommentInputType) {
-  const key = process.env["LOVABLE_API_KEY"];
-  if (!key) throw new Error("Missing LOVABLE_API_KEY");
-
-  const gateway = createLovableAiGatewayProvider(key);
-
   const recent = data.history.length
     ? `Things you already said recently (do not repeat them):\n${data.history.join("\n")}`
     : "This is your first line of the session.";
 
+  const system = `${SYSTEM}\n\n${PERSONA_NOTES[data.persona]}\n${LANGUAGE_NOTES[data.language]}`;
+  const prompt = `User's local time: ${data.localTime || "unknown"}\n${recent}\n\nWhat just happened: ${data.event}`;
+
+  // Prefer the free Google AI Studio key when present.
+  const googleKey = process.env["GEMINI_API_KEY"];
+  if (googleKey) {
+    try {
+      return parseReply(await viaGoogleAiStudio(googleKey, system, prompt));
+    } catch (err) {
+      console.error("[companion] google ai studio failed, falling back:", err);
+    }
+  }
+
+  const key = process.env["LOVABLE_API_KEY"];
+  if (!key) throw new Error("No AI provider configured");
+
+  const gateway = createLovableAiGatewayProvider(key);
   const result = streamText({
     model: gateway("google/gemini-2.5-flash"),
-    system: `${SYSTEM}\n\n${PERSONA_NOTES[data.persona]}\n${LANGUAGE_NOTES[data.language]}`,
-    prompt: `User's local time: ${data.localTime || "unknown"}\n${recent}\n\nWhat just happened: ${data.event}`,
+    system,
+    prompt,
     temperature: 1,
     maxOutputTokens: 160,
   });
 
-
-  const raw = (await result.text).trim();
-  const [lineRaw, moodRaw] = raw.split("\n").filter((l) => l.trim().length > 0);
-  const mood: Mood = MOODS.find((m) => (moodRaw ?? "").toLowerCase().includes(m)) ?? "idle";
-  const line = (lineRaw ?? "...").replace(/^["'\s]+|["'\s]+$/g, "").slice(0, 180);
-
-  return { line, mood };
+  return parseReply(await result.text);
 }
