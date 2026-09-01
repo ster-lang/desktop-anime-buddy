@@ -156,6 +156,29 @@ export function Companion() {
   const [language, setLanguage] = useState<Language>("en");
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const [dragging, setDragging] = useState(false);
+  const [blinking, setBlinking] = useState(false);
+
+  // Occasional blink while she's calmly idling
+  useEffect(() => {
+    if (mood !== "idle" || dragging) return;
+    let timeout: number;
+    let unblink: number;
+    const schedule = () => {
+      timeout = window.setTimeout(
+        () => {
+          setBlinking(true);
+          unblink = window.setTimeout(() => setBlinking(false), 180);
+          schedule();
+        },
+        2500 + Math.random() * 4500,
+      );
+    };
+    schedule();
+    return () => {
+      window.clearTimeout(timeout);
+      window.clearTimeout(unblink);
+    };
+  }, [mood, dragging]);
 
   const historyRef = useRef<string[]>([]);
   const busyRef = useRef(false);
