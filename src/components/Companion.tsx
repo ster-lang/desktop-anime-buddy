@@ -37,6 +37,12 @@ import pyjamasFlustered from "@/assets/companion-pyjamas-flustered.png";
 import pyjamasJealous from "@/assets/companion-pyjamas-jealous.png";
 import pyjamasInterested from "@/assets/companion-pyjamas-interested.png";
 import pyjamasThinking from "@/assets/companion-pyjamas-thinking.png";
+import sweaterBlink from "@/assets/companion-sweater-blink.png";
+import schoolBlink from "@/assets/companion-school-blink.png";
+import yukataBlink from "@/assets/companion-yukata-blink.png";
+import hackerBlink from "@/assets/companion-hacker-blink.png";
+import beachBlink from "@/assets/companion-beach-blink.png";
+import pyjamasBlink from "@/assets/companion-pyjamas-blink.png";
 import { getCompanionComment } from "@/lib/companion.functions";
 
 type Mood = "idle" | "happy" | "interested" | "thinking" | "flustered" | "jealous";
