@@ -327,7 +327,7 @@ export function Companion() {
       </div>
 
       <img
-        src={SPRITES[outfit][mood]}
+        src={blinking && mood === "idle" ? BLINKS[outfit] : SPRITES[outfit][mood]}
         alt={`Mizuki wearing her ${OUTFIT_LABELS[outfit].toLowerCase()}, looking ${mood}`}
         width={768}
         height={1024}
