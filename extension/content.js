@@ -137,6 +137,26 @@ function build() {
   makeDraggable();
 }
 
+let blinkTimer, unblinkTimer;
+
+function scheduleBlink() {
+  clearTimeout(blinkTimer);
+  blinkTimer = setTimeout(
+    () => {
+      if (spriteEl && spriteEl.dataset.mood === "idle" && settings.enabled) {
+        const back = spriteEl.src;
+        const outfit = OUTFITS.includes(settings.outfit) ? settings.outfit : "sweater";
+        spriteEl.src = api.runtime.getURL(`sprites/companion-${outfit}-blink.png`);
+        unblinkTimer = setTimeout(() => {
+          if (spriteEl.dataset.mood === "idle") spriteEl.src = back;
+        }, 180);
+      }
+      scheduleBlink();
+    },
+    2500 + Math.random() * 4500,
+  );
+}
+
 function say(line, mood) {
   if (!root) return;
   textEl.textContent = line;
@@ -200,6 +220,7 @@ function start() {
   root.classList.remove("mizuki-hidden");
 
   speak(`The user just opened a page. ${pageContext()}. Comment on what they're looking at.`);
+  scheduleBlink();
 
   const bump = () => (lastActivity = Date.now());
   window.addEventListener("pointerdown", bump, true);

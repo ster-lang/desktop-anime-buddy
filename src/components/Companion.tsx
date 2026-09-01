@@ -37,6 +37,12 @@ import pyjamasFlustered from "@/assets/companion-pyjamas-flustered.png";
 import pyjamasJealous from "@/assets/companion-pyjamas-jealous.png";
 import pyjamasInterested from "@/assets/companion-pyjamas-interested.png";
 import pyjamasThinking from "@/assets/companion-pyjamas-thinking.png";
+import sweaterBlink from "@/assets/companion-sweater-blink.png";
+import schoolBlink from "@/assets/companion-school-blink.png";
+import yukataBlink from "@/assets/companion-yukata-blink.png";
+import hackerBlink from "@/assets/companion-hacker-blink.png";
+import beachBlink from "@/assets/companion-beach-blink.png";
+import pyjamasBlink from "@/assets/companion-pyjamas-blink.png";
 import { getCompanionComment } from "@/lib/companion.functions";
 
 type Mood = "idle" | "happy" | "interested" | "thinking" | "flustered" | "jealous";
@@ -101,6 +107,15 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
   },
 };
 
+const BLINKS: Record<Outfit, string> = {
+  sweater: sweaterBlink,
+  school: schoolBlink,
+  yukata: yukataBlink,
+  hacker: hackerBlink,
+  beach: beachBlink,
+  pyjamas: pyjamasBlink,
+};
+
 const OUTFIT_LABELS: Record<Outfit, string> = {
   sweater: "Cozy sweater",
   school: "Sailor uniform",
@@ -141,6 +156,29 @@ export function Companion() {
   const [language, setLanguage] = useState<Language>("en");
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const [dragging, setDragging] = useState(false);
+  const [blinking, setBlinking] = useState(false);
+
+  // Occasional blink while she's calmly idling
+  useEffect(() => {
+    if (mood !== "idle" || dragging) return;
+    let timeout: number;
+    let unblink: number;
+    const schedule = () => {
+      timeout = window.setTimeout(
+        () => {
+          setBlinking(true);
+          unblink = window.setTimeout(() => setBlinking(false), 180);
+          schedule();
+        },
+        2500 + Math.random() * 4500,
+      );
+    };
+    schedule();
+    return () => {
+      window.clearTimeout(timeout);
+      window.clearTimeout(unblink);
+    };
+  }, [mood, dragging]);
 
   const historyRef = useRef<string[]>([]);
   const busyRef = useRef(false);
@@ -289,7 +327,7 @@ export function Companion() {
       </div>
 
       <img
-        src={SPRITES[outfit][mood]}
+        src={blinking && mood === "idle" ? BLINKS[outfit] : SPRITES[outfit][mood]}
         alt={`Mizuki wearing her ${OUTFIT_LABELS[outfit].toLowerCase()}, looking ${mood}`}
         width={768}
         height={1024}
