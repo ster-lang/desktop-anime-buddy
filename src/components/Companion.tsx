@@ -107,6 +107,15 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
   },
 };
 
+const BLINKS: Record<Outfit, string> = {
+  sweater: sweaterBlink,
+  school: schoolBlink,
+  yukata: yukataBlink,
+  hacker: hackerBlink,
+  beach: beachBlink,
+  pyjamas: pyjamasBlink,
+};
+
 const OUTFIT_LABELS: Record<Outfit, string> = {
   sweater: "Cozy sweater",
   school: "Sailor uniform",
