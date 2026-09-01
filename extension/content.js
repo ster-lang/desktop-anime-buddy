@@ -137,6 +137,25 @@ function build() {
   makeDraggable();
 }
 
+let blinkTimer, unblinkTimer;
+
+function scheduleBlink() {
+  clearTimeout(blinkTimer);
+  blinkTimer = setTimeout(
+    () => {
+      if (spriteEl && spriteEl.dataset.mood === "idle" && settings.enabled) {
+        const back = spriteEl.src;
+        spriteEl.src = api.runtime.getURL(`sprites/companion-${settings.outfit}-blink.png`);
+        unblinkTimer = setTimeout(() => {
+          if (spriteEl.dataset.mood === "idle") spriteEl.src = back;
+        }, 180);
+      }
+      scheduleBlink();
+    },
+    2500 + Math.random() * 4500,
+  );
+}
+
 function say(line, mood) {
   if (!root) return;
   textEl.textContent = line;
