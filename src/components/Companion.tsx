@@ -78,6 +78,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: sweaterThinking,
     flustered: flusteredSprite,
     jealous: jealousSprite,
+    sleepy: sweaterSleepy,
   },
   school: {
     idle: schoolIdle,
@@ -86,6 +87,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: schoolThinking,
     flustered: schoolFlustered,
     jealous: schoolJealous,
+    sleepy: schoolSleepy,
   },
   yukata: {
     idle: yukataIdle,
@@ -94,6 +96,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: yukataThinking,
     flustered: yukataFlustered,
     jealous: yukataJealous,
+    sleepy: yukataSleepy,
   },
   hacker: {
     idle: hackerIdle,
@@ -102,6 +105,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: hackerThinking,
     flustered: hackerFlustered,
     jealous: hackerJealous,
+    sleepy: hackerSleepy,
   },
   beach: {
     idle: beachIdle,
@@ -110,6 +114,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: beachThinking,
     flustered: beachFlustered,
     jealous: beachJealous,
+    sleepy: beachSleepy,
   },
   pyjamas: {
     idle: pyjamasIdle,
@@ -118,6 +123,16 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: pyjamasThinking,
     flustered: pyjamasFlustered,
     jealous: pyjamasJealous,
+    sleepy: pyjamasSleepy,
+  },
+  hoodie: {
+    idle: hoodieIdle,
+    happy: hoodieHappy,
+    interested: hoodieInterested,
+    thinking: hoodieThinking,
+    flustered: hoodieFlustered,
+    jealous: hoodieJealous,
+    sleepy: hoodieSleepy,
   },
 };
 
@@ -128,6 +143,7 @@ const BLINKS: Record<Outfit, string> = {
   hacker: hackerBlink,
   beach: beachBlink,
   pyjamas: pyjamasBlink,
+  hoodie: hoodieBlink,
 };
 
 const OUTFIT_LABELS: Record<Outfit, string> = {
@@ -137,6 +153,7 @@ const OUTFIT_LABELS: Record<Outfit, string> = {
   hacker: "Overheated hacker",
   beach: "Beach mode",
   pyjamas: "Bedtime pyjamas",
+  hoodie: "Lazy hoodie",
 };
 
 const PERSONA_LABELS: Record<Persona, string> = {
