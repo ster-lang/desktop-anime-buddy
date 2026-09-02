@@ -12,8 +12,8 @@ const DEFAULTS = {
   pos: null, // { x, y } top-left in px, null = default bottom-right
 };
 
-const MOODS = ["idle", "happy", "interested", "thinking", "flustered", "jealous"];
-const OUTFITS = ["sweater", "school", "yukata", "hacker", "beach", "pyjamas"];
+const MOODS = ["idle", "happy", "interested", "thinking", "flustered", "jealous", "sleepy"];
+const OUTFITS = ["sweater", "school", "yukata", "hacker", "beach", "pyjamas", "hoodie"];
 const BASE_WIDTH = 118;
 
 let settings = { ...DEFAULTS };
