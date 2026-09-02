@@ -43,10 +43,24 @@ import yukataBlink from "@/assets/companion-yukata-blink.png";
 import hackerBlink from "@/assets/companion-hacker-blink.png";
 import beachBlink from "@/assets/companion-beach-blink.png";
 import pyjamasBlink from "@/assets/companion-pyjamas-blink.png";
+import sweaterSleepy from "@/assets/companion-sweater-sleepy.png";
+import schoolSleepy from "@/assets/companion-school-sleepy.png";
+import yukataSleepy from "@/assets/companion-yukata-sleepy.png";
+import hackerSleepy from "@/assets/companion-hacker-sleepy.png";
+import beachSleepy from "@/assets/companion-beach-sleepy.png";
+import pyjamasSleepy from "@/assets/companion-pyjamas-sleepy.png";
+import hoodieIdle from "@/assets/companion-hoodie-idle.png";
+import hoodieHappy from "@/assets/companion-hoodie-happy.png";
+import hoodieInterested from "@/assets/companion-hoodie-interested.png";
+import hoodieThinking from "@/assets/companion-hoodie-thinking.png";
+import hoodieFlustered from "@/assets/companion-hoodie-flustered.png";
+import hoodieJealous from "@/assets/companion-hoodie-jealous.png";
+import hoodieSleepy from "@/assets/companion-hoodie-sleepy.png";
+import hoodieBlink from "@/assets/companion-hoodie-blink.png";
 import { getCompanionComment } from "@/lib/companion.functions";
 
-type Mood = "idle" | "happy" | "interested" | "thinking" | "flustered" | "jealous";
-type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach" | "pyjamas";
+type Mood = "idle" | "happy" | "interested" | "thinking" | "flustered" | "jealous" | "sleepy";
+type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach" | "pyjamas" | "hoodie";
 type Persona =
   | "enthusiastic"
   | "encouraging"
@@ -64,6 +78,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: sweaterThinking,
     flustered: flusteredSprite,
     jealous: jealousSprite,
+    sleepy: sweaterSleepy,
   },
   school: {
     idle: schoolIdle,
@@ -72,6 +87,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: schoolThinking,
     flustered: schoolFlustered,
     jealous: schoolJealous,
+    sleepy: schoolSleepy,
   },
   yukata: {
     idle: yukataIdle,
@@ -80,6 +96,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: yukataThinking,
     flustered: yukataFlustered,
     jealous: yukataJealous,
+    sleepy: yukataSleepy,
   },
   hacker: {
     idle: hackerIdle,
@@ -88,6 +105,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: hackerThinking,
     flustered: hackerFlustered,
     jealous: hackerJealous,
+    sleepy: hackerSleepy,
   },
   beach: {
     idle: beachIdle,
@@ -96,6 +114,7 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: beachThinking,
     flustered: beachFlustered,
     jealous: beachJealous,
+    sleepy: beachSleepy,
   },
   pyjamas: {
     idle: pyjamasIdle,
@@ -104,6 +123,16 @@ const SPRITES: Record<Outfit, Record<Mood, string>> = {
     thinking: pyjamasThinking,
     flustered: pyjamasFlustered,
     jealous: pyjamasJealous,
+    sleepy: pyjamasSleepy,
+  },
+  hoodie: {
+    idle: hoodieIdle,
+    happy: hoodieHappy,
+    interested: hoodieInterested,
+    thinking: hoodieThinking,
+    flustered: hoodieFlustered,
+    jealous: hoodieJealous,
+    sleepy: hoodieSleepy,
   },
 };
 
@@ -114,6 +143,7 @@ const BLINKS: Record<Outfit, string> = {
   hacker: hackerBlink,
   beach: beachBlink,
   pyjamas: pyjamasBlink,
+  hoodie: hoodieBlink,
 };
 
 const OUTFIT_LABELS: Record<Outfit, string> = {
@@ -123,6 +153,7 @@ const OUTFIT_LABELS: Record<Outfit, string> = {
   hacker: "Overheated hacker",
   beach: "Beach mode",
   pyjamas: "Bedtime pyjamas",
+  hoodie: "Lazy hoodie",
 };
 
 const PERSONA_LABELS: Record<Persona, string> = {

@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 
-export const MOODS = ["idle", "happy", "interested", "thinking", "flustered", "jealous"] as const;
+export const MOODS = ["idle", "happy", "interested", "thinking", "flustered", "jealous", "sleepy"] as const;
 export type Mood = (typeof MOODS)[number];
 
 export const PERSONAS = [
@@ -64,9 +64,11 @@ Voice rules:
 - React specifically to what the user is doing. Never generic. Be interested, not judgemental.
 - Keep it PG. She is a friendly companion, nothing romantic-explicit.
 
-Then, on a SECOND line, output only one mood word from: idle, happy, interested, thinking, flustered, jealous.
+Then, on a SECOND line, output only one mood word from: idle, happy, interested, thinking, flustered, jealous, sleepy.
 Use "interested" when what they're doing genuinely intrigues you, and "thinking" when you're
-mulling something over or puzzling out what they're up to. Those two are welcome often.`;
+mulling something over or puzzling out what they're up to. Those two are welcome often.
+Use "sleepy" when it's very late at the user's local time, or they're winding down for bed —
+a drowsy, yawning, half-asleep register.`;
 
 function parseReply(raw: string) {
   const [lineRaw, moodRaw] = raw.trim().split("\n").filter((l) => l.trim().length > 0);
