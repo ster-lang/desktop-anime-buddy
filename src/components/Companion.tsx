@@ -43,10 +43,24 @@ import yukataBlink from "@/assets/companion-yukata-blink.png";
 import hackerBlink from "@/assets/companion-hacker-blink.png";
 import beachBlink from "@/assets/companion-beach-blink.png";
 import pyjamasBlink from "@/assets/companion-pyjamas-blink.png";
+import sweaterSleepy from "@/assets/companion-sweater-sleepy.png";
+import schoolSleepy from "@/assets/companion-school-sleepy.png";
+import yukataSleepy from "@/assets/companion-yukata-sleepy.png";
+import hackerSleepy from "@/assets/companion-hacker-sleepy.png";
+import beachSleepy from "@/assets/companion-beach-sleepy.png";
+import pyjamasSleepy from "@/assets/companion-pyjamas-sleepy.png";
+import hoodieIdle from "@/assets/companion-hoodie-idle.png";
+import hoodieHappy from "@/assets/companion-hoodie-happy.png";
+import hoodieInterested from "@/assets/companion-hoodie-interested.png";
+import hoodieThinking from "@/assets/companion-hoodie-thinking.png";
+import hoodieFlustered from "@/assets/companion-hoodie-flustered.png";
+import hoodieJealous from "@/assets/companion-hoodie-jealous.png";
+import hoodieSleepy from "@/assets/companion-hoodie-sleepy.png";
+import hoodieBlink from "@/assets/companion-hoodie-blink.png";
 import { getCompanionComment } from "@/lib/companion.functions";
 
-type Mood = "idle" | "happy" | "interested" | "thinking" | "flustered" | "jealous";
-type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach" | "pyjamas";
+type Mood = "idle" | "happy" | "interested" | "thinking" | "flustered" | "jealous" | "sleepy";
+type Outfit = "sweater" | "school" | "yukata" | "hacker" | "beach" | "pyjamas" | "hoodie";
 type Persona =
   | "enthusiastic"
   | "encouraging"

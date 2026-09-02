@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 
-export const MOODS = ["idle", "happy", "interested", "thinking", "flustered", "jealous"] as const;
+export const MOODS = ["idle", "happy", "interested", "thinking", "flustered", "jealous", "sleepy"] as const;
 export type Mood = (typeof MOODS)[number];
 
 export const PERSONAS = [
