@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mizuki — Settings & privacy</title><link rel="stylesheet" href="ui.css"></head>
+<body class="settings"><main><h1>Mizuki</h1><button id="openChat" type="button">Open private chat ↗</button>
+<fieldset id="controls" disabled><legend>Privacy first</legend>
+<p class="notice">Network access is off until you allow a server. Manual chat sends your message, recent chat history, personality, language and local time to that server. Its operator may use another AI provider; this extension cannot verify their retention policy.</p>
+<label for="apiBase">Companion server</label><input type="url" id="apiBase" spellcheck="false" required>
+<button type="button" id="saveServer" class="secondary">Save server (resets consent)</button>
+<label class="check"><input type="checkbox" id="consent"> I allow chat requests to this saved server</label>
+<p id="destination" class="hint"></p>
+<label class="check"><input type="checkbox" id="sharePageContext"> Also allow automatic page reactions</label>
+<p class="hint">Page reactions send the title, hostname and first headline of non-excluded sites, plus personality, language and local time. They appear inside the website and may be read by it. Private chat history is never included. Incognito reactions are disabled.</p>
+<label for="mode">When should she speak?</label><select id="mode"><option value="manual">Manual only — quiet company</option><option value="occasional">Occasional — at most once every 5 minutes</option><option value="conversational">Conversational — at most once every 2 minutes</option></select>
+<label for="excludedSites">Excluded sites (also hides the sprite)</label><textarea id="excludedSites" rows="2" placeholder="mail.example.com&#10;bank.example.com"></textarea><p class="hint">Hostnames only, separated by spaces or lines. Subdomains are included.</p><button id="saveSites" type="button" class="secondary">Save exclusions</button>
+<label class="check"><input type="checkbox" id="enabled"> Show her on non-excluded pages</label>
+<label for="outfit">Outfit</label><select id="outfit"><option value="sweater">Cozy sweater</option><option value="school">Sailor uniform</option><option value="yukata">Summer yukata</option><option value="hacker">Overheated hacker</option><option value="beach">Beach mode</option><option value="pyjamas">Bedtime pyjamas</option><option value="hoodie">Lazy hoodie</option></select>
+<label for="persona">Personality</label><select id="persona"><option value="enthusiastic">Enthusiastic</option><option value="encouraging">Encouraging</option><option value="quiet">Quiet</option><option value="motivational">Motivational</option><option value="researcher">Security researcher</option><option value="dayoff">Relaxed day off</option></select>
+<label for="language">Language</label><select id="language"><option value="en">English</option><option value="de">Deutsch</option><option value="both">Deutsch / English</option></select>
+<label for="scale">Size — <span id="scaleVal">2.00</span>×</label><input type="range" id="scale" min="1" max="4" step="0.25">
+<button type="button" id="resetPos" class="secondary">Reset her position</button><p class="hint">Settings apply immediately. Click or keyboard-focus the sprite to open chat; drag to move. On browser-protected pages, use the toolbar button instead.</p></fieldset>
+<p id="status" role="status" aria-live="polite"></p></main><script src="common.js"></script><script src="popup.js"></script></body></html>

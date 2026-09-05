@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mizuki — Private chat</title><link rel="stylesheet" href="ui.css"></head>
+<body class="chat"><main>
+<header><img id="portrait" src="sprites/companion-sweater-idle.png" alt="Mizuki"><div><h1>A little company.</h1><p>Chat with Mizuki</p><a href="popup.html" target="_blank" rel="noopener">Settings & privacy</a></div></header>
+<p class="notice" id="privacy">Private from visited websites, not from your configured server. Your messages and recent conversation are sent only when you press Send. No page context is included.</p>
+<p class="hint">The last 40 messages are stored locally in this browser profile. The most recent 12 are sent for context. Clear history below to delete the local conversation and draft; this cannot delete copies held by the server.</p>
+<section id="transcript" aria-label="Conversation" role="log" aria-live="polite" aria-relevant="additions text"></section>
+<form id="chatForm"><label for="message">Your message</label><textarea id="message" maxlength="2000" rows="3" placeholder="Tell her what you're up to…" required></textarea><p class="hint">Enter to send · Shift+Enter for a new line. Drafts are saved locally.</p><div class="actions"><button id="send" type="submit">Send</button><button id="clear" type="button" class="secondary">Clear local history & draft</button></div></form>
+<p id="status" role="status" aria-live="polite"></p>
+</main><script src="common.js"></script><script src="chat.js"></script></body></html>

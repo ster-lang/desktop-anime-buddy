@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Mizuki — Desktop Companion",
+  "version": "1.1.0",
+  "description": "A quiet anime companion with private extension chat and opt-in page reactions.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "mizuki-companion@lovable.app",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": { "required": ["none"] }
+    }
+  },
+  "permissions": ["storage"],
+  "incognito": "not_allowed",
+  "background": {
+    "scripts": ["common.js", "background.js"],
+    "service_worker": "background.js"
+  },
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {"48": "icon-48.png", "128": "icon-128.png"}
+  },
+  "icons": {"48": "icon-48.png", "128": "icon-128.png"},
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["common.js", "content.js"],
+    "run_at": "document_idle"
+  }],
+  "web_accessible_resources": [{"resources": ["sprites/*.png"], "matches": ["<all_urls>"]}]
+}

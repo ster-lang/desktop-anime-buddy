@@ -1,0 +1,2 @@
+/* Retained for upgrade clarity. The manifest no longer injects global CSS.
+   Companion styles are isolated in the shadow root created by content.js. */
